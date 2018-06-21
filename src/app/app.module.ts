@@ -1,5 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFireDatabaseModule } from 'angularfire2/database';
+// import { AngularFireAuthModule } from 'angularfire2/auth';
+// import { FIREBASE_CONFIG } from './app.firebase.config';
 
 
 import { AppComponent } from './app.component';
@@ -24,6 +28,7 @@ import { ListUsersComponent } from './list-users/list-users.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UsersService } from './services/users.service';
 import { SingleUserComponent } from './single-user/single-user.component';
+import { environment } from '../environments/environment';
 
 const appRoutes: Routes = [
   {path: 'auth/signup' , component: SignupComponent},
@@ -63,6 +68,9 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+   // AngularFireModule.initializeApp(environment.firebase),
+   // AngularFireDatabaseModule,
+   // AngularFireAuthModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
