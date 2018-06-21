@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <h2>modifier son profil</h2>
+      photo
+      <form [formGroup]="userForm" (ngSubmit)="onSaveUser()">
+        <div class="form-group">
+          <label for="pseudo">Pseudo</label>
+          <input type="text" class="form-control" id="pseudo" formControlName="pseudo">
+        </div>
+        <div class="form-group">
+          <label for="ville">ville</label>
+          <input type="text" class="form-control" id="author" formControlName="ville">
+        </div>
+        <div class="form-group">
+            <label for="age">age</label>
+            <input type="text" class="form-control" id="age" formControlName="age">
+          </div>
+        <div class="form-group">
+          <h4>ajouter une photo</h4>
+          <!-- envoyer un fichier-->
+          <input type="file" (change)="detectFiles($event)" class="form-control" accept="image/*">
+          <p class="text-success" *ngIf="fileUploaded">Ficher chargé !</p>
+        </div>
+        <!-- desactiver le bouton tant que c'est invalide ou pas terminer de charger -->
+        <button class="btn btn-success"
+                [disabled]="userForm.invalid || fileIsUploading"
+                type="submit">Enregistrer</button>
+      </form>
+    </div>
+  </div>
+  

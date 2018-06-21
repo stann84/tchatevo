@@ -1,0 +1,54 @@
+<div class="mx-auto" style="width: 200px;">
+         
+    <img style="max-width:400px" *ngIf="user.photo" [src]="user.photo">
+
+    <h1>{{ user.pseudo }} {{ user.age }}</h1>
+    <h2> {{ user.ville}}</h2>
+
+    <button class="btn btn-info" (click)="onBack()">retour</button>
+    <button class="btn btn-success" (click)="onLike()">like</button>
+
+  </div>
+
+
+<div class="row">
+    <div class="col-xs-12">photo
+      <img style="max-width:400px" *ngIf="book.photo" [src]="book.photo">
+  
+      <h1>{{ book.title }}</h1>
+      <h2> {{ book.author}}</h2>
+  
+      <button class="btn btn-default" (click)="onBack()">retour</button>
+    </div>
+  </div>
+
+<div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <h1>profil</h1>
+      
+  
+        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+
+          <img src="../../../assets/images/tchat.jpg">
+           <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                  <input type="radio" name="options" id="option1" autocomplete="off" checked> Homme
+                </label>
+                <label class="btn btn-secondary">
+                  <input type="radio" name="options" id="option2" autocomplete="off"> femme
+                </label>
+             </div>-->
+        <div class="form-group">
+          <label for="Pseudo">Pseudo</label>
+          <input type="text" id="email" class="form-control" formControlName="pseudo">
+        </div>
+        <div class="form-group">
+          <label for="ville">Ville</label>
+          <input type="text" id="password" class="form-control" formControlName="ville">
+        </div>
+        <button class="btn-primary" type="submit" [disabled]="signInForm.invalid">Enregistrer</button>
+      </form>
+      <p class="text-danger"> {{ errorMessage }}</p>
+    </div>
+  </div>
+

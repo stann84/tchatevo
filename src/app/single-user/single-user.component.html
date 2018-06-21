@@ -1,0 +1,13 @@
+
+  <div class="mx-auto" style="width: 200px;">
+         
+      <img style="max-width:400px" *ngIf="user.photo" [src]="user.photo">
+  
+      <h1>{{ user.pseudo }} {{ user.age }}</h1>
+      <h2> {{ user.ville}}</h2>
+  
+      <button class="btn btn-info" (click)="onBack()">retour</button>
+      <button class="btn btn-success" (click)="onBack()">retour</button>
+  
+    </div>
+  

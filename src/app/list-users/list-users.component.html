@@ -1,0 +1,17 @@
+
+      <h2 class="list-group">Connectés</h2>
+      <div class="list-group-item">
+        <button class="list-group-item"
+          *ngFor="let user of users; let i = index"
+            (click)="onViewUser(i)">
+          <h4 class=".list-group-item-heading">
+          {{ user.pseudo}} {{ user.age }}
+          <button class="btn btn-default pull-right" (click)="onDeleteUser(user)">
+            <span class="glyphicon glyphicon-send"></span>
+          </button>
+          </h4>
+          <p class="list-group-item-text"> {{ user.ville }}</p>
+        </button>
+    </div>
+  
+  
