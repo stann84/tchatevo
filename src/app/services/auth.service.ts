@@ -9,7 +9,7 @@ export class AuthService {
   createNewUser (email: string, password: string ) {
     return new Promise(
       (resolve, reject) => {
-        firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(email, password).then(
+        firebase.auth().createUserWithEmailAndPassword(email, password).then(
           () => {
             resolve ();
           },
