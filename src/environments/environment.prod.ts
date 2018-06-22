@@ -1,3 +1,4 @@
+// import * as firebase from 'firebase';
 export const environment = {
   production: true,
   firebase: {
@@ -8,5 +9,6 @@ export const environment = {
     storageBucket: 'books-3bd5d.appspot.com',
     messagingSenderId: '373231675965'
   }
+  // firebase.initializeApp(config);
 };
 
