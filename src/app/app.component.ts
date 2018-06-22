@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase';
-
+// import { AngularFirebaseData, } from 'angularfire2/database';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,5 @@ export class AppComponent {
       storageBucket: 'books-3bd5d.appspot.com',
       messagingSenderId: '373231675965'
     };
-     firebase.initializeApp(config);
-
-  }
-}
+    firebase.initializeApp(config);
+}}
