@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularFire2';
-import { AngularFireAuthModule } from 'angularFire2/auth';
+// import { AngularFireAuthModule } from 'angularFire2/auth'
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -66,7 +66,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment),
-    AngularFireAuthModule,
+  // AngularFireAuthModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes)
   ],
