@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs';
+import {Subject} from 'rxjs/Subject';
 import {Book} from '../models/Book.model';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 // on creer la classe

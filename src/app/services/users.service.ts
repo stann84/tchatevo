@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Subject} from 'rxjs';
+import {Subject} from 'rxjs/Subject';
 import {User} from '../models/User.model';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 // on creer la classe
@@ -22,13 +22,13 @@ export class UsersService {
       .set(this.users);
   }
 // on affiche les livres si il n'y a pas de livre on affiche un array vide
-  getUsers() {
+ /* getUsers() {
     firebase.database().ref('users')
       .on('value', (data) => {
         this.users = data.val() ? data.val() : [];
         this.emitUsers();
       });
-  }
+  }*/
   // afficher un seul livre
   getSignleUser(id: number) {
     return new Promise(
@@ -54,6 +54,7 @@ export class UsersService {
   }
 
  // supprimer un livre
+ /*
   removeUser (user: User) {
     if (user.photo) {
       const storageRef = firebase.storage().refFromURL(user.photo);
@@ -78,7 +79,7 @@ export class UsersService {
     this.saveUsers();
     this.emitUsers();
   }
-
+*/
   // ajouter un photo
   uploadFile(file: File) {
     return new Promise (

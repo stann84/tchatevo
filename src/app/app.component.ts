@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import * as firebase from 'firebase/app';
-// import { AngularFirebaseData, } from 'angularfire2/database';
+// import { AngularFireDatabase, } from 'angularfire2/database';
 
 @Component({
   selector: 'app-root',

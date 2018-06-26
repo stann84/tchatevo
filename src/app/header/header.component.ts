@@ -13,7 +13,12 @@ export class HeaderComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+  onSignOut() {
+          this.authService.signOutUser();
+        }}
+
+/*
     firebase.auth().onAuthStateChanged(
       (user) => {
         if (user) {
@@ -24,9 +29,4 @@ export class HeaderComponent implements OnInit {
     }
     );
   }
-  onSignOut() {
-    this.authService.signOutUser();
-  }
-
-
-}
+  */

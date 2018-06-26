@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Book} from '../models/Book.model';
-import {Subscription} from 'rxjs';
+import {Subscription} from 'rxjs/Subscription';
 import {BooksService} from '../services/books.service';
 import {Router} from '@angular/router';
 // afficher la liste des livres supprimer chaque livre naviguer pour creer un livre

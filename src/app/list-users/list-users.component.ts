@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {User} from '../models/User.model';
-import {Subscription} from 'rxjs';
+import {Subscription} from 'rxjs/Subscription';
 import {UsersService} from '../services/users.service';
 import {Router} from '@angular/router';
 // afficher la liste des livres supprimer chaque livre naviguer pour creer un livre
@@ -25,7 +25,7 @@ export class ListUsersComponent implements OnInit , OnDestroy {
       }
     );
     this.usersService.emitUsers();
-    this.usersService.getUsers();
+  //  this.usersService.getUsers();
   }
 
   // créer un nouveau livre
@@ -33,7 +33,7 @@ export class ListUsersComponent implements OnInit , OnDestroy {
     this.router.navigate(['/users', 'new']);
   }
   onDeleteUser(user: User) {
-    this.usersService.removeUser(user);
+   // this.usersService.removeUser(user);
   }
 
   onViewUser(id: number) {

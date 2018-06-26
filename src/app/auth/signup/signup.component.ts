@@ -28,16 +28,14 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     const email = this.signUpForm.get('email').value;
     const password = this.signUpForm.get('password').value;
-    this.authService.createNewUser(email, password).then(
+    /*this.authService.createNewUser(email, password).then(
       () => {
         this.router.navigate(['listusers']);
       },
       (error) => {
       this.errorMessage = error;
     }
-
-
     );
-  }
+  */}
 
 }
