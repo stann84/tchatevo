@@ -1,19 +1,32 @@
-<div *ngIf="auth.user | async; then authenticated else guest"></div>
-
-<ng-template #guest>
-<h3>Inconnu</h3>
-  <p>s'enregister pour commencer</p>
-  <button (click)= "auth.googleLogin()">
-    <i class="fa fa-google"></i> Connection google
-  </button>
-</ng-template>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div *ngIf="auth.user | async; then authenticated else guest"></div>
+        <ng-template #guest>
+          <img src="../../../assets/images/tchat.jpg">
+          <h3>Bonjour pour tchater</h3>
+            <p>veuillez vous connecter</p>
+              <button  type="button" class="btn btn-danger" (click)= "auth.googleLogin()">
+                <i class="fa fa-google"></i> Connection google
+              </button>
+              <button  type="button" class="btn btn-primary" (click)= "auth.facebookLogin()">
+                <i class="fa fa-facebook"></i> Connection facebook
+              </button>
+              {{ error }}
+            <app-signin></app-signin>
+        </ng-template>
 
 <ng-template #authenticated>
   <div *ngIf="auth.user | async as user">
-    <h3>hey, {{ user.displayName }}</h3>
-    <img [src]="user.photoURL">
-    <p>UID: {{ user.uid }}</p>
+    <h3>Salut {{ user.displayName }}</h3>
+   <h4>crée ton profil</h4>
+   <!-- <img [src]="user.photoURL">
+    <p>UID: {{ user.uid }}</p>-->
     <p>Status : {{ user?.statut}}</p>
-  </div>
+    <p>pseudo : {{ user.pseudo}}</p>
   
+  <input type="text" class="input" placeholder="choisi un pseudo"
+  [(ngModel)]="user.pseudo">
+  <p><button class="btn btn-primary" (click)="OnUpdateUserData()">enregistrer</button></p></div>
 </ng-template>
+
+</div>

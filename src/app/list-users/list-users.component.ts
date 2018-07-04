@@ -25,7 +25,7 @@ export class ListUsersComponent implements OnInit , OnDestroy {
       }
     );
     this.usersService.emitUsers();
-  //  this.usersService.getUsers();
+    this.usersService.getUsers();
   }
 
   // créer un nouveau livre

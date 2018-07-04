@@ -22,13 +22,13 @@ export class UsersService {
       .set(this.users);
   }
 // on affiche les livres si il n'y a pas de livre on affiche un array vide
- /* getUsers() {
+  getUsers() {
     firebase.database().ref('users')
       .on('value', (data) => {
         this.users = data.val() ? data.val() : [];
         this.emitUsers();
       });
-  }*/
+  }
   // afficher un seul livre
   getSignleUser(id: number) {
     return new Promise(

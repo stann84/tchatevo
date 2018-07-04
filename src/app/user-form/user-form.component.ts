@@ -3,12 +3,17 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../services/users.service';
 import {Router} from '@angular/router';
 import {User} from '../models/User.model';
+import { Observable  } from 'rxjs/observable';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss']
 })
+
+@Injectable()
 export class UserFormComponent implements OnInit {
 
   userForm: FormGroup;
@@ -16,10 +21,11 @@ export class UserFormComponent implements OnInit {
   fileUrl: string;
   fileUploaded = false;
 
-
+  
   constructor(private formBuilder: FormBuilder,
               private usersService: UsersService,
-              private router: Router) { }
+              private router: Router,
+              private http: HttpClient) { }
 
   ngOnInit() {
     this.initForm();
@@ -67,5 +73,14 @@ export class UserFormComponent implements OnInit {
 
     detectFiles(event) {
     this.onUploadFile(event.target.files[0]);
+    }
+
+    onUpdate(user: User): Observable<User> {
+      console.log('update' + user);
+      return this.http.put<User>(this.userUrl, user, httpOptions)
+      .pipe(
+        catchError(this.handleError('updateUser', user))
+      );
+      this.router.navigate(['/listUsers']);
     }
 }

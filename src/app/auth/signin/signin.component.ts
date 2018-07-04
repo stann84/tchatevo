@@ -24,7 +24,7 @@ export class SigninComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password : ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
     });
-  }/*
+  }
   onSubmit() {
     const email = this.signInForm.get('email').value;
     const password = this.signInForm.get('password').value;
@@ -35,11 +35,7 @@ export class SigninComponent implements OnInit {
       (error) => {
         this.errorMessage = error;
       }
-
-
     );
   }
-*/
-
 
 }

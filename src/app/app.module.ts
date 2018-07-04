@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule, AngularFireAuth  } from 'angularfire2/auth';
 import { CoreModule } from './core/core.module' ;
+import { AngularFireDatabaseModule, AngularFireDatabase,  } from 'angularfire2/database';
+import { HttpClient } from '@angular/common/http';
 
-// import { AngularFireAuthModule } from 'angularfire2/auth'
+import * as firebase from 'firebase/app';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -31,8 +34,9 @@ import { UserProfilComponent } from './user-profil/user-profil.component';
 const appRoutes: Routes = [
   {path: 'auth/signup' , component: SignupComponent},
   {path: 'auth/signin' , component: SigninComponent},
-  {path: 'profil' , canActivate: [AuthGuardService], component: UserFormComponent},
-  {path: 'listusers' , canActivate: [AuthGuardService], component: ListUsersComponent},
+  {path: 'user-form' , canActivate: [AuthGuardService], component: UserFormComponent},
+  {path: 'profil' , canActivate: [AuthGuardService], component: ProfilComponent},
+  {path: 'listusers' ,  component: ListUsersComponent},
   {path: 'user-profil' ,  component: UserProfilComponent},
   {path: 'salons' , canActivate: [AuthGuardService], component: SalonsComponent},
   {path: 'messages' , canActivate: [AuthGuardService], component: MessagesComponent},
@@ -64,9 +68,12 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     HttpClientModule,
     CoreModule,
     RouterModule.forRoot(appRoutes)
@@ -75,7 +82,7 @@ const appRoutes: Routes = [
     AuthService,
     BooksService,
     UsersService,
-    AuthGuardService
+    AuthGuardService,
   ],
   bootstrap: [AppComponent]
 })

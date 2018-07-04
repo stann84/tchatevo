@@ -3,8 +3,8 @@
       <!--  <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
           <a routerLink="books">livres</a>
         </li>--> 
-        <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
-          <a routerLink="listUsers">listUsers</a>
+        <li class="nav-item" routerLinkActive="active"*ngIf="!isAuth" >
+          <a routerLink="listusers">listUsers</a>
         </li>        
         <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
           <a routerLink="salons">salons</a>
@@ -14,13 +14,16 @@
         </li>
         <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
             <a routerLink="profil">profil</a>
-          </li>
-          <li class="nav-item" routerLinkActive="active">
-              <a routerLink="singleUser">single</a>
-            </li>
-            <li class="nav-item" routerLinkActive="active">
-                <a routerLink="user-profil">user-profil</a>
-              </li>
+        </li>
+        <li class="nav-item" routerLinkActive="active"*ngIf="!isAuth">
+            <a routerLink="user-form">user-form</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a routerLink="singleUser">single</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <a routerLink="user-profil">user-profil</a>
+        </li>
      <li class="nav-item" routerLinkActive="active">
         <a routerLink="auth/signup">Créer un compte</a>
       </li>
