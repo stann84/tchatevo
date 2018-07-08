@@ -33,7 +33,7 @@ export class ListUsersComponent implements OnInit , OnDestroy {
     this.router.navigate(['/users', 'new']);
   }
   onDeleteUser(user: User) {
-    this.usersService.removeUser(user);
+   // this.usersService.removeUser(user);
   }
 
   onViewUser(id: number) {

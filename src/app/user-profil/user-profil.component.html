@@ -1,0 +1,42 @@
+<div class= "text-center">
+    <div class="row justify-content-around">
+      <div>
+        <div *ngIf="auth.user | async; then authenticated else guest"></div>
+        <ng-template #guest>
+            <h2>Connexion</h2>
+            <img src="../../../assets/images/tchat.jpg">
+            <h3>Bonjour pour tchater</h3>
+            <p>veuillez vous connecter</p>
+          
+            <div class="row justify-content-around">
+              <button type="button" class="btn btn-danger col-6" (click)="auth.googleLogin()">
+                <i class="fa fa-google"></i> Connection google
+              </button>
+              <button type="button" class="btn btn-primary col-6" (click)="auth.facebookLogin()">
+                <i class="fa fa-facebook"></i> Connection facebook
+              </button>
+              {{ error }}
+            </div>
+      <app-signin></app-signin>
+    </ng-template>
+
+    <ng-template #authenticated>
+      <div class="text-center" *ngIf="auth.user | async as user">
+        <h3>Salut {{ user.displayName }}</h3>
+        <h4>crée ton profil</h4>
+        <img [src]="user.photoURL">
+        <p>UID: {{ user.uid }}</p>
+        <!-- <p>Status : {{ user?.statut}}</p>
+    <p>pseudo : {{ user.pseudo}}</p>-->
+        <app-user-form></app-user-form>
+        <!--
+  <input type="text" class="input" placeholder="choisi un pseudo"
+  [(ngModel)]="user.pseudo">
+  <p><button class="btn btn-primary"
+   (click)="OnUpdateUserData()">enregistrer</button></p> -->
+      </div>
+    </ng-template>
+
+  </div>
+  </div>
+  </div>

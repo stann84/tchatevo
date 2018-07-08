@@ -35,10 +35,7 @@ export class SigninComponent implements OnInit {
       (error) => {
         this.errorMessage = error;
       }
-
-
     );
   }
-
 
 }
