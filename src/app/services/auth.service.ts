@@ -38,7 +38,7 @@ export class AuthService {
                     }
                 });
               }
-
+// login facebook et google
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
@@ -59,15 +59,15 @@ export class AuthService {
 public updateUserData(user) {
         const userRef: AngularFirestoreDocument<User> =
         this.af.doc('users/${user.uid}');
-        console.log(user.pseudo);
+       // console.log(user.pseudo);
 
         const data: User = {
           uid: user.uid,
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          statut: user.status,
-          pseudo: user.pseudo
+         // statut: user.status,
+         //  pseudo: user.pseudo
 };
 return userRef.set(data);
 // return userRef.set(data, { merge: true});

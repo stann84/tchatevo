@@ -21,6 +21,12 @@ export class UsersService {
     firebase.database().ref('users')
       .set(this.users);
   }
+
+  // mettre a jour dans firebase
+  updateUsers() {
+    firebase.database().ref('users')
+    .push(this.users);
+  }
 // on affiche les livres si il n'y a pas de livre on affiche un array vide
   getUsers() {
     firebase.database().ref('users')
@@ -49,6 +55,15 @@ export class UsersService {
     this.users.push(newUser);
     // les enregistre
     this.saveUsers();
+    // emet le subject
+    this.emitUsers();
+  }
+
+  // créer un seul user
+  createUser(newUser: User) {
+    this.users.push(newUser);
+    // les enregistre
+    this.updateUsers();
     // emet le subject
     this.emitUsers();
   }

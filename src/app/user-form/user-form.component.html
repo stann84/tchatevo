@@ -1,6 +1,6 @@
-<div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
-      <h2>modifier son profil</h2>
+<div class="text-center">
+    <div>
+      <h2>Crée ton profil</h2>
       photo
       <form [formGroup]="userForm" (ngSubmit)="onSaveUser()">
         <div class="form-group">
@@ -20,14 +20,24 @@
           <h4>ajouter une photo</h4>
           <!-- envoyer un fichier-->
           <input type="file" (change)="detectFiles($event)" class="form-control" accept="image/*">
+          
           <p class="text-success" *ngIf="fileUploaded">Ficher chargé !</p>
         </div>
         <!-- desactiver le bouton tant que c'est invalide ou pas terminer de charger -->
-        <button class="btn btn-success"
+        
+        <button class="btn btn-success col-4"
                 [disabled]="userForm.invalid || fileIsUploading"
                 type="submit">Enregistrer</button>
-      </form>
-      <button class="btn btn-danger"(click)="onUpdate()">MAJ</button>
-    </div>
+
+                
+      </form> 
+      <button class="btn btn-danger col-4"
+                (click)="onViewUser()">voir mon profil</button> 
+
+               
+      <button class="btn btn-primary col-4"
+                (click)="onUpdateUser(user)">Metre a jour</button>
+    
+  </div>
   </div>
   

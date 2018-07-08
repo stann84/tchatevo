@@ -3,34 +3,31 @@
       <!--  <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
           <a routerLink="books">livres</a>
         </li>--> 
-        <li class="nav-item" routerLinkActive="active"*ngIf="!isAuth" >
+        <li class="nav-item" routerLinkActive="active"*ngIf="isAuth" >
           <a routerLink="listusers">listUsers</a>
         </li>        
-        <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
+       <!-- <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
           <a routerLink="salons">salons</a>
-        </li>        
-        <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
+        </li>    -->    
+       <!-- <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
           <a routerLink="messages">messages</a>
-        </li>
+        </li>-->
         <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
-            <a routerLink="profil">profil</a>
+            <a routerLink="profil">mon profil</a>
         </li>
-        <li class="nav-item" routerLinkActive="active"*ngIf="!isAuth">
-            <a routerLink="user-form">user-form</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-            <a routerLink="singleUser">single</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-            <a routerLink="user-profil">user-profil</a>
+       <!-- <li class="nav-item" routerLinkActive="active">
+            <a routerLink="singleUser">s'enregistrer</a>
+        </li>-->
+        <li class="nav-item" routerLinkActive="active" *ngIf="!isAuth">
+            <a routerLink="user-profil">Connexion</a>
         </li>
      <li class="nav-item" routerLinkActive="active">
         <a routerLink="auth/signup">Créer un compte</a>
       </li>
-      <li class="nav-item" routerLinkActive="active">
+     <!-- <li class="nav-item" routerLinkActive="active">
         <a routerLink="auth/signin">Connexion</a>
-      </li>
-      <li class="nav-item" >
+      </li>-->
+      <li class="nav-item" routerLinkActive="active" *ngIf="isAuth" >
         <a class= "text-warning" (click)="onSignOut()">déconnexion</a>
       </li>
     </ul>
