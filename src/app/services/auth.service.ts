@@ -66,28 +66,12 @@ public updateUserData(user) {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          statut: user.status,
-          pseudo: user.pseudo
+        //  statut: user.status,
+        //  pseudo: user.pseudo
 };
 return userRef.set(data);
 // return userRef.set(data, { merge: true});
 }
-
-createNewUser (email: string, password: string ) {
-    return new Promise(
-      (resolve, reject) => {
-        firebase.auth().createUserWithEmailAndPassword
-        (email, password).then(
-          () => {
-            resolve ();
-          },
-        (error) => {
-            reject(error);
-        }
-        );
-      }
-    );
-  }
 
 createProfile() {
   this.afAuth.authState.take(1).subscribe(auth => {
@@ -103,6 +87,7 @@ createProfile() {
   }
 );
 }
+
 /*
 createProfile() {
   this.afAuth.authState.take(1).subscribe(auth => {
@@ -118,6 +103,26 @@ createProfile() {
 );
 }*/
 
+// créer un user par email
+
+createNewUser (email: string, password: string ) {
+  return new Promise(
+    (resolve, reject) => {
+      firebase.auth().createUserWithEmailAndPassword
+      (email, password).then(
+        () => {
+          resolve ();
+        },
+      (error) => {
+          reject(error);
+      }
+      );
+    }
+  );
+}
+
+// connexion user par email
+
 signInUser(email: string , password: string) {
   return new Promise (
     (resolve, reject) => {
@@ -132,7 +137,7 @@ signInUser(email: string , password: string) {
     }
   );
 }
-
+// deconnexion
 signOutUser() {
   firebase.auth().signOut();
 }

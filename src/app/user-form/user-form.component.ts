@@ -52,7 +52,7 @@ export class UserFormComponent implements OnInit {
       this.usersService.createNewUser(newUser);
      // this.router.navigate(['/users' , 'view', id]);
 // essaie de router vers la page profile
-  this.router.navigate(['/users', 'view', 1]);
+  this.router.navigate(['/users', 'view', id]);
 
   }
 // essaie boutton mise a jour de profil
