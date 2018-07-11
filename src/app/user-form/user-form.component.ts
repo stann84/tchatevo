@@ -29,6 +29,7 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+   // console.log(uid);
   }
 
   initForm() {
@@ -38,7 +39,8 @@ export class UserFormComponent implements OnInit {
       age: ['', Validators.required],
     });
     }
-    onSaveUser () {
+// boutton sauvegarde d'un user par le formulaire
+    onSaveUser (id: number) {
       const pseudo = this.userForm.get('pseudo').value;
       const ville = this.userForm.get('ville').value;
       const age = this.userForm.get('age').value;
@@ -48,9 +50,12 @@ export class UserFormComponent implements OnInit {
         console.log(' file url ' + this.fileUrl);
       }
       this.usersService.createNewUser(newUser);
-      this.router.navigate(['/listusers']);
-  }
+     // this.router.navigate(['/users' , 'view', id]);
+// essaie de router vers la page profile
+  this.router.navigate(['/users', 'view', 1]);
 
+  }
+// essaie boutton mise a jour de profil
   onUpdateUser() {
     const pseudo = this.userForm.get('pseudo').value;
     const ville = this.userForm.get('ville').value;
@@ -63,7 +68,7 @@ export class UserFormComponent implements OnInit {
     this.usersService.updateUsers();
     this.router.navigate(['/profil']);
    }
-
+// ajouter et detecter une photo
     onUploadFile(file: File) {
     this.fileIsUploading = true;
     this.usersService.uploadFile(file).then(
@@ -87,7 +92,7 @@ export class UserFormComponent implements OnInit {
     detectFiles(event) {
     this.onUploadFile(event.target.files[0]);
     }
-
+// afficher un profil
     onViewUser(id: number) {
       this.router.navigate(['/users', 'view', id]);
      }

@@ -8,9 +8,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth  } from 'angularfire2/auth';
 import { CoreModule } from './core/core.module' ;
 import { AngularFireDatabaseModule, AngularFireDatabase,  } from 'angularfire2/database';
-import { HttpClient } from '@angular/common/http';
-
-import * as firebase from 'firebase/app';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -34,6 +31,7 @@ import { UsersService } from './services/users.service';
 import { SingleUserComponent } from './single-user/single-user.component';
 import { environment } from '../environments/environment';
 import { UserProfilComponent } from './user-profil/user-profil.component';
+import { UpdateUserComponent } from './user-form/update-user/update-user.component';
 
 const appRoutes: Routes = [
   {path: 'auth/signup' , component: SignupComponent},
@@ -42,6 +40,7 @@ const appRoutes: Routes = [
   {path: 'profil' , canActivate: [AuthGuardService], component: ProfilComponent},
   {path: 'listusers' ,  component: ListUsersComponent},
   {path: 'user-profil' ,  component: UserProfilComponent},
+  {path: 'user-form/update-user' ,  component: UpdateUserComponent},
   {path: 'salons' , canActivate: [AuthGuardService], component: SalonsComponent},
   {path: 'messages' , canActivate: [AuthGuardService], component: MessagesComponent},
   {path: 'books', canActivate: [AuthGuardService], component: BookListComponent},
@@ -68,7 +67,8 @@ const appRoutes: Routes = [
     ListUsersComponent,
     UserFormComponent,
     SingleUserComponent,
-    UserProfilComponent
+    UserProfilComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,

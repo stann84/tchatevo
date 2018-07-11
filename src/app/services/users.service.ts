@@ -27,7 +27,7 @@ export class UsersService {
     firebase.database().ref('users')
     .push(this.users);
   }
-// on affiche les livres si il n'y a pas de livre on affiche un array vide
+// on affiche les users si il n'y a pas de user on affiche un array vide
   getUsers() {
     firebase.database().ref('users')
       .on('value', (data) => {
@@ -35,7 +35,7 @@ export class UsersService {
         this.emitUsers();
       });
   }
-  // afficher un seul livre
+  // afficher un seul user
   getSignleUser(id: number) {
     return new Promise(
       (resolve, reject) => {
@@ -49,9 +49,9 @@ export class UsersService {
       }
       );
   }
-  // creer un livre
+  // creer un user
   createNewUser(newUser: User) {
-    // ajout le livre a l'array des users
+    // ajout le user a l'array des users
     this.users.push(newUser);
     // les enregistre
     this.saveUsers();
@@ -68,7 +68,7 @@ export class UsersService {
     this.emitUsers();
   }
 
- // supprimer un livre
+ // supprimer un user
  /*
   removeUser (user: User) {
     if (user.photo) {

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { User } from '../models/User.model';
 import { NgForm } from '@angular/forms';
 
 

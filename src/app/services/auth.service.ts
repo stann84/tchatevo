@@ -19,16 +19,16 @@ interface User {
   pseudo?: string;
 }
 @Injectable ()
-export class AuthService {
+export class AuthService {user: Observable<User>;
+                          router: Router;
+                          errorMessage: any;
+                          currentUser: User;
 
-  user: Observable<User>;
-  errorMessage: any;
   constructor (private afAuth: AngularFireAuth,
               private af: AngularFirestore,
-              private router: Router,
-             // private db: AngularFireDatabase
+              private db: AngularFireDatabase
             ) {
-             // db.list('user');
+              db.list('user');
                 this.user = this.afAuth.authState
                 .switchMap(user => {
                   if (user) {
@@ -66,8 +66,8 @@ public updateUserData(user) {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-         // statut: user.status,
-         //  pseudo: user.pseudo
+          statut: user.status,
+          pseudo: user.pseudo
 };
 return userRef.set(data);
 // return userRef.set(data, { merge: true});
@@ -91,8 +91,8 @@ createNewUser (email: string, password: string ) {
 
 createProfile() {
   this.afAuth.authState.take(1).subscribe(auth => {
-    console.log('profil');
- /* this.db.list('user/${auth.uid}').push(this.user)
+    console.log('creer un profil');
+    this.db.list('user/${auth.uid}').push(this.user)
     .then(() => {
         this.router.navigate(['listUsers']);
       },
@@ -100,7 +100,7 @@ createProfile() {
         this.errorMessage = error;
       }
     );
- */ }
+  }
 );
 }
 /*
