@@ -29,7 +29,10 @@
           <img [src]="user.photoURL">
           <p>UID: {{ user.uid }}</p>
           <p>Status : {{ user?.statut}}</p>
-          <p>pseudo : {{ user.pseudo}}</p>
+          <p>pseudo : {{ user?.pseudo}}</p>
+            <input [(ngModel)]="user.pseudo" #ctrl="ngModel" required>
+             <p>Valid: {{ ctrl.valid }}</p>
+              <button class="btn btn-primary" (click)="auth.updateUserData(user)">enregistrer</button>
 <!-- affichage du formlaire -->
         <app-user-form></app-user-form>
         <!--
