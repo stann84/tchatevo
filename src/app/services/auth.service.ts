@@ -36,7 +36,7 @@ export class AuthService { user: Observable<User> ;
                           currentUser: User;
 
   constructor (private afAuth: AngularFireAuth,
-              private af: AngularFirestore,
+              private afs: AngularFirestore,
               private db: AngularFireDatabase,
               private formBuilder: FormBuilder) {
 
@@ -56,10 +56,15 @@ export class AuthService { user: Observable<User> ;
 
 // Connexion google ok mais le subscribe ne fonctionne pas
              // db.list('user');
+            // pseudo = 'toto';
                 this.user = this.afAuth.authState
                 .switchMap(user => {
                   if (user) {
-                    return this.af.doc<User>('users/${user.uid}')
+                    console.log('switchmap display = ' + user.displayName);
+                   // console.log('switchmap pseudo = ' + pseudo);
+                   // this.currentUser = this.user;
+                    return this.afs.doc<User>('users/${user.uid}')
+                  //  return this.afs.doc<User>('users/${user.uid}/users/${user.pseudo}');
                    // .update({pseudo : user.user});
                     .valueChanges();
                     } else {
@@ -67,11 +72,15 @@ export class AuthService { user: Observable<User> ;
                       return Observable.of(null);
                     }
                 });
-                console.log('manque subscribe');
-               /* .subscribe (user => {
-                  this.currentUser['username'] = user.username;
-                }*/
+                /*
+                .subscribe (user => {
+                 this.currentUser['pseudo'] = user.pseudo;
+                });*/
               }
+
+
+
+// db.collection("users").doc()
 // login facebook et google
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -92,8 +101,19 @@ export class AuthService { user: Observable<User> ;
   }
 
 public updateUserData(user) {
+
+ /*  const pseudoRef = this.db.pseudo('pseudo').doc('xx');
+  const setWithMerge = pseudoRef.set({
+    capital: true
+  }, { merge: true }); */
+// chercher le pseudo
+      //  const pseudoRef: AngularFirestoreDocument<User> =
+      //  this.afs.doc('users/${user.uid}/pseudo{user.pseudo}');
+// chercher l'user
         const userRef: AngularFirestoreDocument<User> =
-        this.af.doc('users/${user.uid}');
+        this.afs.doc('users/${user.uid}');
+        console.log('updateUserData displayname = ' + user.displayname);
+        console.log('updateUserData user.pseudo =' + user.pseudo);
       // this.af.collection('users').doc('users/${user.uid}').set(Object.assign({}, user))
       // console.log(user.pseudo);
 
@@ -102,16 +122,21 @@ public updateUserData(user) {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-        //  pseudo: user.pseudo
-};
+          pseudo: user.pseudo
+          };
 // return userRef.update(data, { create: true });
 // j'essai d'assigner l'objet
 // return userRef.set(Object.assign(data));
 //  return userRef.update(data);
  // return userRef.set(data, { merge: true});
- return userRef.set(data, { merge: true });
 
-// console.log(Error);
+// user.pseudo = this.user.pseudo;
+ /* if ( user.pseudo != null ) {
+  user.pseudo = this.user.pseudo;
+  // this.user = user;
+ } else { */
+
+   return userRef.set (data, { merge: true});
 }
 
 createProfile() {
