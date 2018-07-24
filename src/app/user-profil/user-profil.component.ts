@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { NgForm } from '@angular/forms';
-import { User } from '../models/User.model';
+// import { User } from '../models/User.model';
 
 
 @Component({

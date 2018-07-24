@@ -12,21 +12,32 @@ import {Router} from '@angular/router';
 export class ListUsersComponent implements OnInit , OnDestroy {
 
   // On créer l'array local des users pense a importer users et subscription
+  /*  user firebase
+   users: User[]; */
   users: User[];
   usersSubscription: Subscription;
+
 
   // on injecte les services
   constructor(private usersService: UsersService, private router: Router) { }
 
+
   ngOnInit() {
-    this.usersSubscription = this.usersService.usersSubject.subscribe(
+     this.usersSubscription = this.usersService.usersSubject.subscribe(
       (users: User[]) => {
         this.users = users;
       }
     );
     this.usersService.emitUsers();
     this.usersService.getUsers();
-  }
+
+   /*  this.usersService.getUsers().subscribe((users) => {
+       console.log(users);
+      this.users = users;
+  }); */
+
+
+}
 
   // créer un nouveau livre
   onNewuser() {

@@ -2,12 +2,13 @@
          
     <!--<img style="max-width:400px" *ngIf="user.photo" [src]="user.photoURL">
     --><h1>Mon profil</h1>
-    <div *ngFor="let user of users; let i = index">
+    <div>
     
-    <h1>{{ i }}{{ user.uid }}{{ user.pseudo }} </h1>
-   
+    <h1>{{ user.id }}</h1>
+  uid : {{ user.uid }}
+  displayname : {{user.displayName}}
 </div>
-    <!-- <button class="btn btn-info" (click)="onBack()">retour</button>
+     <button class="btn btn-info" (click)="onUpdateProfile()">retour</button>
     <button class="btn btn-success" (click)="onLike()">like</button>-->
 
   </div>

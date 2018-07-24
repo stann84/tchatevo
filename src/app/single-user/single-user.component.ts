@@ -19,7 +19,7 @@ export class SingleUserComponent implements OnInit {
   ngOnInit() {
     // on créer d'abord un user vide temporaraire pour eviter les erreur au cas ou il ne soit pas arriver
 
-    this.user = new User('', '', '');
+    this.user = new User('', '', '', '');
     const id = this.route.snapshot.params['id'];
     this.usersService.getSignleUser(+id).then(
       (user: User) => {
@@ -27,7 +27,6 @@ export class SingleUserComponent implements OnInit {
         this.user = user;
       }
     );
-    // this.usersService.getSignleUser(0);
   }
   onBack() {
     this.router.navigate(['/listUsers']);

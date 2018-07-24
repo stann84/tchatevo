@@ -1,14 +1,15 @@
  
-  <div class="mx-auto" style="width: 200px;">
-    <h2>single user</h2>
+  <div class="mx-auto" style="width: 400px;">
+    <h2>single user</h2>id : {{ id }}
          
-      <img style="max-width:400px" *ngIf="user.photo" [src]="user.photo">
+      <img style="max-width:800px" *ngIf="user.photo" [src]="user.photo">
   
-      <h1> {{ user.id }} {{ user.pseudo }} {{ user.age }}</h1>
-      <h2> {{ user.ville}}</h2>
+      <h1> pseudo : {{ user.username }} </h1>
+      <h2> age : {{ user.age }} </h2>
+      <h3> ville : {{ user.ville}}</h3>
   
       <button class="btn btn-info" (click)="onBack()">retour</button>
       <button class="btn btn-success" (click)="onModification()">modifier</button>
-  
+      <app-user-form></app-user-form>
     </div>
   

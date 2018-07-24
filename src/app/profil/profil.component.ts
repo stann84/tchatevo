@@ -4,6 +4,7 @@ import { User } from '../models/User.model';
 import { Router, ChildActivationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import * as firebase from 'firebase/app';
+import { AngularFireAuth } from '../../../node_modules/angularfire2/auth';
 
 @Component({
   selector: 'app-profil',
@@ -12,43 +13,19 @@ import * as firebase from 'firebase/app';
 })
 
 export class ProfilComponent implements OnInit {
-  users: User[
-  ];
-  usersSubscription: Subscription;
-
- /* const rootRef = firebase.database().ref();
-  const oneRef = rootRef.child('users');
-  const db = firebase.database();
-  const users = db.ref()child("users");*/
-
-  constructor(private usersService: UsersService, private router: Router) { }
-
-  ngOnInit(id = 0) { this.router.navigate(['/users', 'view', id]);
-    this.usersSubscription = this.usersService.usersSubject.subscribe(
-      (users: User[]) => {
-        this.users = users;
-      }
-    );
-    this.usersService.emitUsers();
-    this.usersService.getUsers();
-  }
-
-  onViewUser(id: number) {
-   this.router.navigate(['/users', 'view', id]);
-  }
-}/*
+// user = firebase.auth().currentUser;
+user: firebase.User;
+  constructor(private usersService: UsersService,
+              private router: Router,
+              private AfAuth: AngularFireAuth) {
+                 AfAuth.authState.subscribe(user => this.user = user);
+                }
 
   ngOnInit() {
-    this.usersSubscription = this.usersService.usersSubject.subscribe(
-      (users: User[]) => {
-        this.users = users;
-      }
-    );
-    this.usersService.emitUsers();
-    this.usersService.getUsers();
+    console.log(this.user);
+  }
+  onUpdateProfile() {
+    console.log(this.user.displayName);
   }
 
-  onViewUser(id: number) {
-   this.router.navigate(['/users', 'view', id]);
-  }
-}*/
+}

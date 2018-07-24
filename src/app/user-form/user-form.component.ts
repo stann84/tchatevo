@@ -6,6 +6,7 @@ import {User} from '../models/User.model';
 import { Observable  } from 'rxjs/observable';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthService } from '../services/auth.Service';
 
 @Component({
   selector: 'app-user-form',
@@ -37,30 +38,32 @@ export class UserFormComponent implements OnInit {
       pseudo: ['', Validators.required],
       ville: ['', Validators.required],
       age: ['', Validators.required],
+      id: ['']
     });
     }
 // boutton sauvegarde d'un user par le formulaire
-    onSaveUser (id: number) {
+    onSaveUser () {
       const pseudo = this.userForm.get('pseudo').value;
       const ville = this.userForm.get('ville').value;
       const age = this.userForm.get('age').value;
-      const newUser = new User(pseudo, ville, age);
+      const id = this.userForm.get('id').value;
+      const newUser = new User(pseudo, ville, age, id);
       if (this.fileUrl && this.fileUrl !== '') {
         newUser.photo = this.fileUrl;
         console.log(' file url ' + this.fileUrl);
       }
       this.usersService.createNewUser(newUser);
-     // this.router.navigate(['/users' , 'view', id]);
+      this.router.navigate(['listusers']);
 // essaie de router vers la page profile
-  this.router.navigate(['/users', 'view', id]);
-
+// console.log('enregistrement')
   }
 // essaie boutton mise a jour de profil
   onUpdateUser() {
     const pseudo = this.userForm.get('pseudo').value;
     const ville = this.userForm.get('ville').value;
     const age = this.userForm.get('age').value;
-    const newUser = new User(pseudo, ville, age);
+    const id = this.userForm.get('id').value;
+    const newUser = new User(pseudo, ville, age, id);
     if (this.fileUrl && this.fileUrl !== '') {
       newUser.photo = this.fileUrl;
       console.log(' file url ' + this.fileUrl);
@@ -94,7 +97,7 @@ export class UserFormComponent implements OnInit {
     }
 // afficher un profil
     onViewUser(id: number) {
-      this.router.navigate(['/users', 'view', id]);
+      this.router.navigate(['listusers']);
      }
 
 

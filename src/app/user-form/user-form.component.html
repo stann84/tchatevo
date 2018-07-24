@@ -10,11 +10,13 @@
         </div>
         <div class="form-group">
           <label for="ville">ville</label>
-          <input type="text" class="form-control" id="author" formControlName="ville">
+          <input type="text" class="form-control"
+           id="ville" formControlName="ville">
         </div>
         <div class="form-group">
             <label for="age">age</label>
-            <input type="text" class="form-control" id="age" formControlName="age">
+            <input type="text" class="form-control"
+          id="age" formControlName="age">
           </div>
         <div class="form-group">
           <h4>ajouter une photo</h4>
@@ -24,7 +26,7 @@
           <p class="text-success" *ngIf="fileUploaded">Ficher chargé !</p>
         </div>
         <!-- desactiver le bouton tant que c'est invalide ou pas terminer de charger -->
-        
+         
         <button class="btn btn-success col-4"
                 [disabled]="userForm.invalid || fileIsUploading"
                 type="submit">Enregistrer</button>
@@ -32,11 +34,11 @@
                 
       </form> 
       <button class="btn btn-danger col-4"
-                (click)="onViewUser()">voir mon profil</button> 
+                (click)="onViewUser(i)">voir mon profil</button> 
 
                
       <button class="btn btn-primary col-4"
-                (click)="onUpdateUser(user)">Metre a jour</button>
+                (click)="onUpdateUser(i)">Metre a jour</button>
     
   </div>
   </div>

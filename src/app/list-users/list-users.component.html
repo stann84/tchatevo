@@ -4,12 +4,13 @@
           *ngFor="let user of users; let i = index"
             (click)="onViewUser(i)">
               <h4 class=".list-group-item-heading">
-              {{ user.pseudo}} {{ user.age }}
+                {{ i }} {{ user.username }} {{user.address.zipcode}}
+
               <button class="btn btn-default pull-right" (click)="onDeleteUser(user)">
                 <span class="glyphicon glyphicon-send"></span>
               </button>
               </h4>
-              <p class="list-group-item-text"> {{ user.ville }}</p>
+              <p class="list-group-item-text"> {{ user.address.city }}</p>
             </button>
          </div>
   

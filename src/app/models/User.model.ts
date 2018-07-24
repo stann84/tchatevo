@@ -4,6 +4,7 @@ export class User {
 
     constructor(public pseudo: string,
                  public ville: string,
-                 public age: string) {
+                 public age: string,
+                  public id: string) {
     }
   }

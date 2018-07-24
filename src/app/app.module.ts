@@ -21,6 +21,7 @@ import { BooksService } from './services/books.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfilComponent } from './profil/profil.component';
 import { MessagesComponent } from './messages/messages.component';
@@ -75,13 +76,11 @@ const appRoutes: Routes = [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-   // AngularFireModule.initializeApp(environment.firebase),
-   // AngularFireDatabaseModule,
-   // AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     HttpClientModule,
+    HttpModule,
     CoreModule,
     RouterModule.forRoot(appRoutes)
   ],

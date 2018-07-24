@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 import {User} from '../models/User.model';
 import * as firebase from 'firebase/app';
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 // on creer la classe
@@ -11,7 +14,7 @@ export class UsersService {
   // on creer un subjecte de l'array
   usersSubject = new Subject<User[]>();
 
-  constructor() { }
+  constructor(public http: Http) { }
   // on emmet les Users
   emitUsers() {
     this.usersSubject.next(this.users);
@@ -35,6 +38,11 @@ export class UsersService {
         this.emitUsers();
       });
   }
+ /*  getUsers() {this.updateUsers();
+    return this.http.get('https://jsonplaceholder.typicode.com/users')
+    .map(res => res.json());
+      } */
+
   // afficher un seul user
   getSignleUser(id: number) {
     return new Promise(
@@ -119,5 +127,4 @@ export class UsersService {
       }
     );
   }
-
 }
