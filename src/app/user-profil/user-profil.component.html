@@ -25,12 +25,15 @@
       <ng-template #authenticated>
         <div class="text-center" *ngIf="auth.user | async as user">
           <h3>Salut {{ user.displayName }}</h3>
-          <h4>crée ton profil</h4>
           <img [src]="user.photoURL">
-          <p>UID: {{ user.uid }}</p>
-          <p>pseudo : {{ user.pseudo }}</p>
+          <h4>crée ton profil</h4>
+          <h4>Choisis un pseudo : {{ user.pseudo }}</h4>
             <input [(ngModel)]="user.pseudo" #ctrl="ngModel" required>
-          <p>Valid: {{ ctrl.valid }}</p>
+          <h4>Choisis une ville : {{ user.ville }}</h4>
+            <input [(ngModel)]="user.ville" #ctrl="ngModel" required>
+          <h4>Choisis un age : {{ user.age }}</h4>
+          <input [(ngModel)]="user.age" #ctrl="ngModel" required>
+        <p>Valid: {{ ctrl.valid }}</p>
           <button class="btn btn-primary" (click)="auth.updateUserData(user)">enregistrer</button>
         </div>
       </ng-template>

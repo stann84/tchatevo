@@ -1,8 +1,5 @@
 
     <ul class="nav navbar-dark bg-dark">
-      <!--  <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
-          <a routerLink="books">livres</a>
-        </li>--> 
         <li class="nav-item" routerLinkActive="active"*ngIf="isAuth" >
           <a routerLink="listusers">listUsers</a>
         </li>        
@@ -14,9 +11,6 @@
         </li>-->
         <li class="nav-item" routerLinkActive="active"*ngIf="isAuth">
             <a routerLink="profil">mon profil</a>
-        </li>
-        <li class="nav-item" routerLinkActive="active">
-            <a routerLink="profil">profil</a>
         </li>
         <li class="nav-item" routerLinkActive="active" *ngIf="!isAuth">
             <a routerLink="user-profil">Connexion</a>
