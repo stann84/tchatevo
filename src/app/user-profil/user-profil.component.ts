@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { NgForm } from '@angular/forms';
-// import { User } from '../models/User.model';
-
 
 @Component({
   selector: 'app-user-profil',
@@ -11,14 +9,12 @@ import { NgForm } from '@angular/forms';
 })
 export class UserProfilComponent {
 
-
-  constructor(public auth: AuthService,
-              ) {
+  constructor(public auth: AuthService) {
+   // console.log(this.auth.user);
    }
 OnUpdateUserData(form: NgForm) {
   console.log(form.value);
     this.auth.updateUserData(this.auth);
-
     }
 OnCreateProfile() {
       this.auth.createProfile();

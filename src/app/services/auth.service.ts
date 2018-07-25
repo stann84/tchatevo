@@ -1,6 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@angular/forms';
 
 import * as firebase from 'firebase/app';
 
@@ -10,9 +9,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
-// import { User } from './auth-custom';
-// import { User } from '../models/User.model';
-
 
 interface User {
   uid: string;
@@ -33,24 +29,9 @@ export class AuthService {
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private db: AngularFireDatabase,
-              private formBuilder: FormBuilder) {
+              private db: AngularFireDatabase) {
 
-    // essai depuis le tuto
-    /* this.afAuth.authState
-      .switchMap(auth => {
-        if (auth) {
-          console.log('swithmap auth ');
-          // this.currentUser = new User();
-          // this.currentUser = new User(auth);
-          return this.db.object('/users/${auth.uid}');
-        } else { return []; }
-      });
-.subscribe(user => {
-      this.currentUser['username'] = user.username;
-    }); */
 
-    // Connexion google ok mais le subscribe ne fonctionne pas
 
     this.user = this.afAuth.authState
       .switchMap(user => {
@@ -90,53 +71,6 @@ export class AuthService {
       this.afs.doc(`users/${user.uid}`);
 
       console.log(`users/${user.email}${user.pseudo}`);
-
-     /*  getJsonData(){
-        return this.http.get('http://URL_TO_JSON_FILE').map(res => res.json());
-      } */
-
-    // const pseudo = (`${user.pseudo}`);
-   // user.pseudo = this.afs.collection('users').doc('pseudo');
-
-    /* pseudoRef.get().then(function(doc) {
-      if (doc.exists) {
-         user.pseudo =  (`${user.pseudo}`);
-        console.log('Document data:', doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log('No such document!');
-    }
-  }).catch(function(error) {
-    console.log('Error getting document:', error);
-  }); */
-
-    /*
-      user.pseudo.get().then(function(doc) {
-        if (doc.exists) {
-            console.log('Document data:', doc.data());
-        } else {
-            // doc.data() will be undefined in this case
-            console.log('No such document!');
-        }
-    }).catch(function(error) {
-        console.log('Error getting document:', error);
-    }); */
-
-    /* this.afs.doc(`users/${user.uid}.collection${user.pseudo}`).ref.get().then((documentSnapshot) => {
-      console.log(documentSnapshot.exists);
-    }); */
-
-    /* user.pseudo = this.afs . collection ( `users/${user.uid}`); */
-    /*  user.pseudo = this.afs.doc(`users/${user.uid}`)
-     .ref.get().then((documentSnapshot) => {
-      console.log('afs' + user.pseudo);
-    }, (error) => {
-      this.errorMessage = error;
-    }
-    ); */
-
-    /*  const pseudoRef = userRef . collection(user.uid) . doc('pseudo');
-     user.pseudo = pseudoRef; */
 
     console.log(' displayN = ' + user.displayName);
     console.log(' pseudo = ' + user.pseudo);
@@ -212,9 +146,4 @@ export class AuthService {
   signOutUser() {
     firebase.auth().signOut();
   }
-  /* checkPseudo() {
-    this.user.checkPseudo(this.pseudoText).subscribe(pseudo => {
-      this.pseudoResult= !pseudo.$value
-    });
-  } */
 }

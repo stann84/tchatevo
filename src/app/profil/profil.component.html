@@ -1,55 +1,55 @@
-<div class="mx-auto" style="width: 200px;">
-         
-    <!--<img style="max-width:400px" *ngIf="user.photo" [src]="user.photoURL">
-    --><h1>Mon profil</h1>
+<div class="mx-auto" style="width: 600px;" class="text-center" *ngIf="auth.user | async as user">   
+    <!--<img style="max-width:400px" *ngIf="user.photo" [src]="user.photoURL">-->
+    <h1>Mon profil</h1>
     <div>
-    
-    <h1>{{ user.id }}</h1>
-  uid : {{ user.uid }}
-  displayname : {{user.displayName}}
-</div>
-     <button class="btn btn-info" (click)="onUpdateProfile()">retour</button>
-    <button class="btn btn-success" (click)="onLike()">like</button>-->
-
-  </div>
-
-<!--
-<div class="row">
-    <div class="col-xs-12">photo
-      <img style="max-width:400px" *ngIf="book.photo" [src]="book.photo">
-  
-      <h1>{{ book.title }}</h1>
-      <h2> {{ book.author}}</h2>
-  
-      <button class="btn btn-default" (click)="onBack()">retour</button>
+      <p>uid : {{ user.uid }}</p>
+      <p>pseudo : {{ user.pseudo }}</p>
+      <p>display : {{ user.displayName }}</p>
     </div>
+    <div>
+      <button class="btn btn-info" (click)="onUpdateProfile()">retour</button>
+      <button class="btn btn-success" (click)="onLike()">like</button>
+    </div>
+
   </div>
 
-<div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
-      <h1>profil</h1>
-        <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-
+  <div class="text-center">
+    <div class="row justify-content-around">
+      <div>
+        <div *ngIf="auth.user | async; then authenticated else guest"></div>
+        <!-- template guest -->
+        <ng-template #guest>
+          <h2>Connexion</h2>
           <img src="../../../assets/images/tchat.jpg">
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-secondary active">
-                  <input type="radio" name="options" id="option1" autocomplete="off" checked> Homme
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="options" id="option2" autocomplete="off"> femme
-                </label>
-             </div>
-        <div class="form-group">
-          <label for="Pseudo">Pseudo</label>
-          <input type="text" id="email" class="form-control" formControlName="pseudo">
-        </div>
-        <div class="form-group">
-          <label for="ville">Ville</label>
-          <input type="text" id="password" class="form-control" formControlName="ville">
-        </div>
-        <button class="btn-primary" type="submit" [disabled]="signInForm.invalid">Enregistrer</button>
-      </form>
-      <p class="text-danger"> {{ errorMessage }}</p>
+          <h3>Bonjour pour tchater</h3>
+          <p>veuillez vous connecter</p>
+  
+          <div class="row justify-content-around">
+            <button type="button" class="btn btn-danger col-6" (click)="auth.googleLogin()">
+              <i class="fa fa-google"></i> Connection google
+            </button>
+            <button type="button" class="btn btn-primary col-6" (click)="auth.facebookLogin()">
+              <i class="fa fa-facebook"></i> Connection facebook
+            </button>
+            {{ error }}
+          </div>
+          <app-signin></app-signin>
+        </ng-template>
+  
+        <!--temlate authentifié-->
+        <ng-template #authenticated>
+          <div class="text-center" *ngIf="auth.user | async as user">
+            <h3>Salut {{ user.displayName }}</h3>
+            <h4>crée ton profil</h4>
+            <img [src]="user.photoURL">
+            <p>UID: {{ user.uid }}</p>
+            <p>pseudo : {{ user.pseudo }}</p>
+              <input [(ngModel)]="user.pseudo" #ctrl="ngModel" required>
+            <p>Valid: {{ ctrl.valid }}</p>
+            <button class="btn btn-primary" (click)="auth.updateUserData(user)">enregistrer</button>
+          </div>
+        </ng-template>
+      </div>
     </div>
-  </div>-->
+  </div>
 
