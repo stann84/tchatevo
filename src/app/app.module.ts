@@ -1,9 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-// import { AngularFireModule } from 'angularfire2';
-// import { AngularFireDatabaseModule } from 'angularfire2/database';
-// import { AngularFireAuthModule } from 'angularfire2/auth';
-// import { FIREBASE_CONFIG } from './app.firebase.config';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth  } from 'angularfire2/auth';
 import { CoreModule } from './core/core.module' ;
@@ -35,7 +31,7 @@ import { UserProfilComponent } from './user-profil/user-profil.component';
 import { UpdateUserComponent } from './user-form/update-user/update-user.component';
 
 const appRoutes: Routes = [
-  {path: 'auth/signup' , component: SignupComponent},
+  {path: 'auth/signup' , canActivate: [AuthGuardService], component: SignupComponent},
   {path: 'auth/signin' , component: SigninComponent},
   {path: 'user-form' , canActivate: [AuthGuardService], component: UserFormComponent},
   {path: 'profil' , canActivate: [AuthGuardService], component: ProfilComponent},
@@ -48,8 +44,8 @@ const appRoutes: Routes = [
   {path: 'books/new', canActivate: [AuthGuardService], component: BookFormComponent},
   {path: 'users/view/:id', canActivate: [AuthGuardService], component: SingleUserComponent},
   {path: 'books/view/:id', canActivate: [AuthGuardService], component: SingleBookComponent},
-  {path: '', redirectTo: 'auth/signup', pathMatch: 'full'},
-  {path: '**', redirectTo: 'auth/signup'}
+  {path: '', redirectTo: 'user-profil', pathMatch: 'full'},
+  {path: '**', redirectTo: 'user-profil'}
 
 ];
 

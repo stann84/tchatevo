@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -10,13 +10,10 @@ import { AuthService } from '../services/auth.service';
 
 
 export class ProfilComponent {
-// user = this.AuthService.user;
  user = this.auth.user;
 
   constructor(public auth: AuthService,
-              private router: Router) {
-                // AfAuth.authState.subscribe(user => this.user = user);
-                }
+              private router: Router) {}
 
   onUpdateProfile() {
     console.log('onUpdateProfile');

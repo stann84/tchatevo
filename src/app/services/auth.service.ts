@@ -9,6 +9,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
+import { Subject } from 'rxjs/Subject';
 
 interface User {
   uid: string;
@@ -27,12 +28,13 @@ export class AuthService {
     router: Router;
     errorMessage: any;
     currentUser: User;
+    private users: User[];
+    userSubject = new Subject<User[]>();
+
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
               private db: AngularFireDatabase) {
-
-
 
     this.user = this.afAuth.authState
       .switchMap(user => {
@@ -70,7 +72,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<User> =
       this.afs.doc(`users/${user.uid}`);
 
-      console.log(`users/${user.email}${user.pseudo}`);
+    console.log(`users/${user.email}${user.pseudo}`);
 
     console.log(' displayN = ' + user.displayName);
     console.log(' pseudo = ' + user.pseudo);

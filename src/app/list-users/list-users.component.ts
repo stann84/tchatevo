@@ -1,57 +1,24 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {User} from '../models/User.model';
-import {Subscription} from 'rxjs/Subscription';
-import {UsersService} from '../services/users.service';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
+
 // afficher la liste des livres supprimer chaque livre naviguer pour creer un livre
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
   styleUrls: ['./list-users.component.scss']
 })
-export class ListUsersComponent implements OnInit , OnDestroy {
+export class ListUsersComponent {
 
-  // On créer l'array local des users pense a importer users et subscription
-  /*  user firebase
-   users: User[]; */
-  users: User[];
-  usersSubscription: Subscription;
+ public users: Observable<any[]>;
 
-
-  // on injecte les services
-  constructor(private usersService: UsersService, private router: Router) { }
-
-
-  ngOnInit() {
-     this.usersSubscription = this.usersService.usersSubject.subscribe(
-      (users: User[]) => {
-        this.users = users;
-      }
-    );
-    this.usersService.emitUsers();
-    this.usersService.getUsers();
-
-   /*  this.usersService.getUsers().subscribe((users) => {
-       console.log(users);
-      this.users = users;
-  }); */
+  constructor(
+               private router: Router,
+               private afs: AngularFirestore) {
+                  this.users = afs.collection('/users').valueChanges();
+                }
+              }
 
 
-}
 
-  // créer un nouveau livre
-  onNewuser() {
-    this.router.navigate(['/users', 'new']);
-  }
-  onDeleteUser(user: User) {
-   // this.usersService.removeUser(user);
-  }
-
-  onViewUser(id: number) {
-   this.router.navigate(['/users', 'view', id]);
-  }
-
-  ngOnDestroy() {
-    this.usersSubscription.unsubscribe();
-  }
-}

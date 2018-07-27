@@ -1,10 +1,17 @@
-  <h2 class="list-group">Les utilisateurs</h2>
-      <div class="list-group-item">
+<ul class="list-group">
+  <li class="list-group-item" *ngFor="let user of users | async ">
+    {{ user.pseudo | json }} {{ user.age | json}} {{ user.ville | json }}</li>
+</ul>
+
+
+<!--   <h2 class="list-group">Les utilisateurs</h2>
+  <div class="list-group-item" *ngIf="auth.user | async as user">
+         Liste {{ user.pseudo }}
         <button class="list-group-item"
-          *ngFor="let user of users; let i = index"
+          *ngFor="let user of users"
             (click)="onViewUser(i)">
               <h4 class=".list-group-item-heading">
-                pseudo : {{ user.pseudo }} 
+                pseudo : {{ user.pseudo }} {{ pseudo }} 
               <button class="btn btn-default pull-right" (click)="onDeleteUser(user)">
                 <span class="glyphicon glyphicon-send"></span>
               </button>
@@ -13,4 +20,5 @@
             </button>
          </div>
   
-  
+   -->
+
