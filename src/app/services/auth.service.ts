@@ -16,10 +16,11 @@ interface User {
   email: string;
   photoURL?: string;
   displayName?: string;
-  // statut?: string;
+  statut?: string;
   pseudo?: string;
   ville?: string;
-  age: string;
+  age?: string;
+  message?: string;
 
 }
 @Injectable()
@@ -71,20 +72,6 @@ export class AuthService {
   public updateUserData(user: any) {
     const userRef: AngularFirestoreDocument<User> =
       this.afs.doc(`users/${user.uid}`);
-
-    console.log(`users/${user.email}${user.pseudo}`);
-
-    console.log(' displayN = ' + user.displayName);
-    console.log(' pseudo = ' + user.pseudo);
-
-    // user.pseudo = 'toto';
-    // user.pseudo = this.afs.doc(`users/${user.uid}`);
-
-    // const pseudoRef = user.pseudo;
-    // console.log(`users/${user.pseudo}`);
-    // console.log(this.user);
-    // console.log('updateUserData user.pseudo =' + user.pseudo);
-
     const data: User = {
       uid: user.uid,
       email: user.email,
@@ -92,7 +79,8 @@ export class AuthService {
       photoURL: user.photoURL,
       pseudo: user.pseudo,
       ville: user.ville,
-      age: user.age
+      age: user.age,
+      message: user.message
     };
     return userRef.set(data);
   }

@@ -4,10 +4,15 @@ import '@firebase/messaging';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../services/auth.service';
 import 'rxjs/add/operator/map';
 
 interface Post {
-  title: string;
+  content: string;
+  user: string;
+}
+
+interface Message {
   content: string;
 }
 
@@ -19,21 +24,43 @@ interface Post {
  export class MessagesComponent implements OnInit, OnDestroy {
    postCol: AngularFirestoreCollection<Post>;
    posts: Observable<Post[]>;
+   messageCol: AngularFirestoreCollection<Message>;
+   messages: Observable<Message[]>;
+   user = this.auth.user;
 
 
- constructor(private afs: AngularFirestore) {
+ constructor(private afs: AngularFirestore,
+            private auth: AuthService) {
 
  }
-title: string;
 content: string;
+
 
  ngOnInit() {
    this.postCol = this.afs.collection('posts');
    this.posts = this.postCol.valueChanges();
+   this.messageCol = this.afs.collection('message');
+   this.messages = this.messageCol.valueChanges();
  }
 
- addPost() {
-  this.afs.collection('posts').add({'title': this.title, 'content': this.content});
+addPost() {
+  this.afs.collection('posts')
+  .add({'content': this.content});
+ // console.log(user.pseudo);
+  // this.user = this.auth.user;
+}
+addUser() {
+  console.log(this.auth.user);
+}
+
+AddPostAndUser() {
+  this.addPost();
+  this.addUser();
+}
+addMessage() {
+ this.afs.collection('messages')
+   .add({'content': this.content});
+  console.log(this.user);
 }
 
  ngOnDestroy() {
