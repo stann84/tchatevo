@@ -63,7 +63,7 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithPopup(provider)
       .then(credential => {
-          //  return this.updateUserData(credential.user);
+       //    return this.updateUserData(credential.user);
       });
       // .catch(error => this.handleError(error));
   }
