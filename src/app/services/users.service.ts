@@ -76,6 +76,33 @@ export class UsersService {
     this.emitUsers();
   }
 
+
+  // ajouter un photo
+  uploadFile(file: File) {
+    return new Promise (
+      (resolve, reject) => {
+        const almostUniqueFileName = Date.now().toString();
+        const upload = firebase.storage().ref()
+          .child('images/' + almostUniqueFileName + file.name)
+          .put(file);
+        upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        () => {
+          console.log('chargement ...');
+        },
+          (error) => {
+          console.log ('erreur de chargement' + error);
+          reject();
+          },
+          () => {
+
+              resolve(upload.snapshot.ref.getDownloadURL());
+            }
+        );
+      }
+    );
+  }
+}
+
  // supprimer un user
  /*
   removeUser (user: User) {
@@ -103,28 +130,3 @@ export class UsersService {
     this.emitUsers();
   }
 */
-  // ajouter un photo
-  uploadFile(file: File) {
-    return new Promise (
-      (resolve, reject) => {
-        const almostUniqueFileName = Date.now().toString();
-        const upload = firebase.storage().ref()
-          .child('images/' + almostUniqueFileName + file.name)
-          .put(file);
-        upload.on(firebase.storage.TaskEvent.STATE_CHANGED,
-        () => {
-          console.log('chargement ...');
-        },
-          (error) => {
-          console.log ('erreur de chargement' + error);
-          reject();
-          },
-          () => {
-
-              resolve(upload.snapshot.ref.getDownloadURL());
-            }
-        );
-      }
-    );
-  }
-}

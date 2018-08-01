@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule, AngularFireAuth  } from 'angularfire2/auth';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { CoreModule } from './core/core.module' ;
-import { AngularFireDatabaseModule, AngularFireDatabase,  } from 'angularfire2/database';
+import { AngularFireDatabaseModule,  } from 'angularfire2/database';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -29,6 +29,7 @@ import { SingleUserComponent } from './single-user/single-user.component';
 import { environment } from '../environments/environment';
 import { UserProfilComponent } from './user-profil/user-profil.component';
 import { UpdateUserComponent } from './user-form/update-user/update-user.component';
+import { NotifyService } from './services/notify.service';
 
 const appRoutes: Routes = [
   {path: 'auth/signup' , canActivate: [AuthGuardService], component: SignupComponent},
@@ -38,12 +39,9 @@ const appRoutes: Routes = [
   {path: 'listusers' ,  component: ListUsersComponent},
   {path: 'user-profil' ,  component: UserProfilComponent},
   {path: 'user-form/update-user' ,  component: UpdateUserComponent},
-  {path: 'salons' , canActivate: [AuthGuardService], component: SalonsComponent},
-  {path: 'messages' , canActivate: [AuthGuardService], component: MessagesComponent},
-  {path: 'books', canActivate: [AuthGuardService], component: BookListComponent},
-  {path: 'books/new', canActivate: [AuthGuardService], component: BookFormComponent},
+  {path: 'salons' , component: SalonsComponent},
+  {path: 'messages' ,  component: MessagesComponent},
   {path: 'users/view/:id', canActivate: [AuthGuardService], component: SingleUserComponent},
-  {path: 'books/view/:id', canActivate: [AuthGuardService], component: SingleBookComponent},
   {path: '', redirectTo: 'user-profil', pathMatch: 'full'},
   {path: '**', redirectTo: 'user-profil'}
 
@@ -85,6 +83,7 @@ const appRoutes: Routes = [
     BooksService,
     UsersService,
     AuthGuardService,
+    NotifyService
   ],
   bootstrap: [AppComponent]
 })

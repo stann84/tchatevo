@@ -21,7 +21,7 @@ interface Message {
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss']
 })
- export class MessagesComponent implements OnInit, OnDestroy {
+ export class MessagesComponent implements OnInit {
    postCol: AngularFirestoreCollection<Post>;
    posts: Observable<Post[]>;
    messageCol: AngularFirestoreCollection<Message>;
@@ -63,9 +63,6 @@ addMessage() {
   console.log(this.user);
 }
 
- ngOnDestroy() {
-   console.log('destroy');
- }
  }
   /*
   items: AngularFireList<any>;

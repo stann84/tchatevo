@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import { Subject } from 'rxjs/Subject';
+import { NotifyService } from '../services/notify.service';
 
 interface User {
   uid: string;
@@ -28,14 +29,13 @@ export class AuthService {
     user: Observable<User>;
     router: Router;
     errorMessage: any;
-    currentUser: User;
-    private users: User[];
-    userSubject = new Subject<User[]>();
 
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private db: AngularFireDatabase) {
+              private db: AngularFireDatabase,
+              private route: Router,
+              private notify: NotifyService) {
 
     this.user = this.afAuth.authState
       .switchMap(user => {
@@ -45,10 +45,7 @@ export class AuthService {
         } else {
           return Observable.of(null);
         }
-      }); /*
-  .subscribe (user => {
-    this.user[user.pseudo] = user.pseudo;
-  }); */
+      });
   }
   // login facebook et google
   googleLogin() {
@@ -61,31 +58,33 @@ export class AuthService {
     return this.oAuthLogin(provider);
   }
 
-  private oAuthLogin(provider: any) {
+  oAuthLogin(provider: any) {
+    console.log('oAuthlogin');
     return this.afAuth.auth
       .signInWithPopup(provider)
-      .then((credential) => {
-          console.log(credential);
+      .then(credential => {
+          //  return this.updateUserData(credential.user);
       });
+      // .catch(error => this.handleError(error));
   }
 
-  public updateUserData(user: any) {
+  public updateUserData(user) {
+    console.log('updatUserData');
     const userRef: AngularFirestoreDocument<User> =
       this.afs.doc(`users/${user.uid}`);
-    const data: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      pseudo: user.pseudo,
-      ville: user.ville,
-      age: user.age,
-      message: user.message
+        const data: User = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          pseudo: user.pseudo,
+          ville: user.ville,
+          age: user.age,
     };
-    return userRef.set(data);
+    return userRef.set(data, {merge: true });
   }
 
-  createProfile() {
+createProfile() {
     this.afAuth.authState.take(1).subscribe(auth => {
       console.log('création de profil');
       this.db.list(`user/${auth.uid}`).push(this.user)
@@ -134,8 +133,18 @@ export class AuthService {
       }
     );
   }
-  // deconnexion
+// deconnexion
   signOutUser() {
-    firebase.auth().signOut();
+    firebase.auth().signOut()
+    .then(() => {
+      this.route.navigate(['/user-profil']);
+      console.log('signOutUser');
+    });
   }
+
+ // If error, console log and notify user
+ private handleError(error: Error) {
+  console.error(error);
+  this.notify.update(error.message, 'error');
+}
 }

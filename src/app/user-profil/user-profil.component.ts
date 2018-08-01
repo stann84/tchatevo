@@ -10,8 +10,8 @@ import { NgForm } from '@angular/forms';
 export class UserProfilComponent {
 
   constructor(public auth: AuthService) {
-   // console.log(this.auth.user);
    }
+
 OnUpdateUserData(form: NgForm) {
   console.log(form.value);
     this.auth.updateUserData(this.auth);
