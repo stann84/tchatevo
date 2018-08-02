@@ -12,6 +12,10 @@ interface Post {
   user: string;
 }
 
+interface PostId extends Post {
+  id: string;
+}
+
 interface Message {
   content: string;
 }
@@ -23,29 +27,34 @@ interface Message {
 })
  export class MessagesComponent implements OnInit {
    postCol: AngularFirestoreCollection<Post>;
-   posts: Observable<Post[]>;
+   posts: any;
    messageCol: AngularFirestoreCollection<Message>;
-   messages: Observable<Message[]>;
-   user = this.auth.user;
-
 
  constructor(private afs: AngularFirestore,
             private auth: AuthService) {
 
  }
 content: string;
-
+user = this.auth.user;
 
  ngOnInit() {
    this.postCol = this.afs.collection('posts');
-   this.posts = this.postCol.valueChanges();
-   this.messageCol = this.afs.collection('message');
-   this.messages = this.messageCol.valueChanges();
+   /* this.posts = this.postCol.valueChanges(); */
+   this.posts = this.postCol.snapshotChanges()
+    .map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Post;
+        const id = a.payload.doc.id;
+        return {id, data };
+      });
+    });
+   /* this.messageCol = this.afs.collection('message');
+   this.messages = this.messageCol.valueChanges(); */
  }
 
  onAddPost() {
   this.afs.collection('posts')
-  .add({'content': this.content});
+  .add({'user': this.user , 'content': this.content});
 }
 addUser() {
   console.log(this.auth.user);
