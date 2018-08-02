@@ -24,7 +24,7 @@
       <!--temlate authentifié-->
       <ng-template #authenticated>
         <div class="text-center" *ngIf="auth.user | async as user">
-          <h3>Salut {{ user.displayName }}</h3>
+          <h3>Bienvenue</h3>
           <img [src]="user.photoURL">
           <h4>Choisis un pseudo : {{ user.pseudo }}</h4>
             <input [(ngModel)]="user.pseudo" #ctrl="ngModel" required>

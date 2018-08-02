@@ -43,23 +43,21 @@ content: string;
    this.messages = this.messageCol.valueChanges();
  }
 
-addPost() {
+ onAddPost() {
   this.afs.collection('posts')
   .add({'content': this.content});
- // console.log(user.pseudo);
-  // this.user = this.auth.user;
 }
 addUser() {
   console.log(this.auth.user);
 }
 
-AddPostAndUser() {
+/* AddPostAndUser() {
   this.addPost();
   this.addUser();
-}
+} */
 addMessage() {
  this.afs.collection('messages')
-   .add({'content': this.content});
+   .add({'user': this.auth.user , 'content': this.content  });
   console.log(this.user);
 }
 

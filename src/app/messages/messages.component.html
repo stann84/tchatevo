@@ -1,16 +1,26 @@
-<div class="text-center" *ngIf="auth.user | async as user">
-  <div>
-    <ul class="list-group" *ngFor="let post of posts | async">
-        <li class="list-group-item">{{user.pseudo}} {{ post.content}} </li> 
-    </ul>
+<div *ngIf="auth.user | async as user">
+  <div class="h-80% d-inline-block" style="width:100%">
+       <div  *ngFor="let post of posts | async">
+            <div class="float-left p-3 mb-2 bg-primary">
+                {{user.pseudo}}
+            </div>
+            <div>
+                <p class="p-3 mb-2 text-left">{{ post.content }}</p>
+            </div>
+        </div>
+   
 </div>
-<div>
-        <textarea [(ngModel)]="content" name="content"
-         placeholder="Content.."></textarea>
-         <button type="submit" class="btn btn-primary" (click)="AddPost()">envoyer</button>
+<div class="fixed-bottom">
+        <div class="form-group float-left">
+            <textarea  
+                rows="1"
+                width="100%"
+                [(ngModel)]="content" 
+                name="content"
+                placeholder="message.."></textarea>
+        </div>
+        <div class="float-right"><button type="submit" class="btn btn-primary" (click)="onAddPost()">envoyer</button></div>
 </div>
-<div>{{user.pseudo | json}}</div>
-<button type="submit" (click)="addUser()">ajoute user</button>
 </div>
 
 <!-- <div  class="text-center" *ngIf="auth.user | async as user">
