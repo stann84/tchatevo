@@ -7,11 +7,12 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   isAuth: Boolean;
+  user = this.auth.user;
 
-  constructor(private authService: AuthService) {
+  constructor(private auth: AuthService) {
     firebase.auth().onAuthStateChanged(
       (user) => {
         if (user) {
@@ -21,9 +22,7 @@ export class HeaderComponent implements OnInit {
         }
     }
     ); }
-
-  ngOnInit() {}
   onSignOut() {
-          this.authService.signOutUser();
+          this.auth.signOutUser();
         }}
 

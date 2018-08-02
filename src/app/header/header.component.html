@@ -18,13 +18,10 @@
      <li class="nav-item" routerLinkActive="active" *ngIf="!isAuth">
         <a routerLink="auth/signup">Créer un compte</a>
       </li>
-     <!-- <li class="nav-item" routerLinkActive="active">
-        <a routerLink="auth/signin">Connexion</a>
-      </li>-->
       <li class="nav-item" routerLinkActive="active" *ngIf="isAuth" >
         <a class= "text-warning" (click)="onSignOut()">déconnexion</a>
       </li>
-      <li *ngIf="isAuth">
-        en ligne 
+      <li class="nav-item" *ngIf="auth.user | async as user">
+        <img [src]="user.photoURL" class="img-circle float-right" style="width:40px " >       
       </li>
     </ul>
