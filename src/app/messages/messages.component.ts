@@ -6,71 +6,84 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth.service';
 import 'rxjs/add/operator/map';
+import { User } from '../models/User.model';
 
 interface Post {
   content: string;
   user: string;
+  pseudo: string;
 }
-
+// id pour le post
 interface PostId extends Post {
   id: string;
 }
-
-interface Message {
-  content: string;
-}
-
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss']
 })
  export class MessagesComponent implements OnInit {
-   postCol: AngularFirestoreCollection<Post>;
-   posts: any;
-   messageCol: AngularFirestoreCollection<Message>;
+   user = this.auth.user;
+
+  postsCol: AngularFirestoreCollection<Post>;
+  posts: any;
+
+   content: string;
+
+   postDoc: AngularFirestoreCollection<Post>;
+   post: Observable<Post>;
 
  constructor(private afs: AngularFirestore,
-            private auth: AuthService) {
-
+            private auth: AuthService,
+            private afAuth: AngularFireAuth
+          ) {
  }
-content: string;
-user = this.auth.user;
+// ici ca marche
+ pseudo = this.afs.collection(`users`).doc(`pseudo`);
 
- ngOnInit() {
-   this.postCol = this.afs.collection('posts');
-   /* this.posts = this.postCol.valueChanges(); */
-   this.posts = this.postCol.snapshotChanges()
-    .map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Post;
-        const id = a.payload.doc.id;
-        return {id, data };
+ ngOnInit() {console.log('obj', this.pseudo)
+ console.log('JSON.stringify',JSON.stringify(this.user));
+ //  this.pseudo = this.afs.collection(`users/${this.pseudo}`);
+
+
+this.user = this.afAuth.authState
+.switchMap(user => {
+  if (user) {
+    return this.afs.doc<User>(`users/${user.uid}`)
+      .valueChanges();
+  } else {
+    return Observable.of(null);
+  }
+});
+ 
+
+// je creer le post
+    this.postsCol = this.afs.collection('posts');
+    this.posts = this.postsCol.snapshotChanges()
+      .map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Post;
+          const id = a.payload.doc.id;
+          return { id, data };
+        });
       });
-    });
-   /* this.messageCol = this.afs.collection('message');
-   this.messages = this.messageCol.valueChanges(); */
- }
+  }
+  /* getPseudo(){
+     console.log(this.pseudo);
+  } */
 
+
+
+
+// j'envoie le message avec le pseudo de l'utilisateur et le message
  onAddPost() {
   this.afs.collection('posts')
-  .add({'user': this.user , 'content': this.content});
-}
-addUser() {
-  console.log(this.auth.user);
-}
-
-/* AddPostAndUser() {
-  this.addPost();
-  this.addUser();
-} */
-addMessage() {
- this.afs.collection('messages')
-   .add({'user': this.auth.user , 'content': this.content  });
-  console.log(this.user);
+  .add({
+    'pseudo': this.pseudo,
+    'content': this.content});
+  }
 }
 
- }
   /*
   items: AngularFireList<any>;
   user: any;

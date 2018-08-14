@@ -147,4 +147,6 @@ createProfile() {
   console.error(error);
   this.notify.update(error.message, 'error');
 }
+
 }
+

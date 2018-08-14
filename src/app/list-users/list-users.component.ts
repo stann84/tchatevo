@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
-// afficher la liste des livres supprimer chaque livre naviguer pour creer un livre
 @Component({
   selector: 'app-list-users',
   templateUrl: './list-users.component.html',
@@ -16,7 +15,7 @@ export class ListUsersComponent {
   constructor(
                private router: Router,
                private afs: AngularFirestore) {
-                  this.users = afs.collection('/users').valueChanges();
+                  this.users = afs.collection('users').valueChanges();
                 }
               }
 

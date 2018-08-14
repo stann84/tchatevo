@@ -1,28 +1,31 @@
-<div *ngIf="auth.user | async as user">
-  <div class="h-80% d-inline-block" style="width:100%">
-       <div  *ngFor="let post of posts | async">
-            <div class="float-left p-3 mb-2 bg-primary">
-                {{user.pseudo}}
-            </div>
-            <div>
-                <p class="p-3 mb-2 text-left">{{ post.data.content }}</p>
-            </div>
-        </div>
-   
-</div>
-<div class="fixed-bottom">
-        <div class="form-group float-left">
-            <textarea  
-                rows="1"
-                width="100%"
-                [(ngModel)]="content" 
-                name="content"
-                placeholder="message.."></textarea>
-        </div>
-        <div class="float-right"><button type="submit" class="btn btn-primary" (click)="onAddPost()">envoyer</button></div>
-</div>
-</div>
 
+<div class="container-fluid" *ngIf="auth.user | async as user">
+    <div  
+    style="width: 100%;
+    background-color: rgba(155, 155, 155, 0.1);
+    Max-height: 600px;
+    overflow-y: scroll;">
+    <div *ngFor="let post of posts | async">
+                <div class="float-left p-3 mb-2 bg-primary">
+                    {{ post.data?.pseudo  }} 
+                </div>
+                <div>
+                    <p class="p-3 mb-2 text-left">{{ post.data.content }}</p>
+                </div>
+    </div></div>
+    <div>
+            <div class="form-group float-left ">
+                <textarea  
+                    rows="1"
+                    [(ngModel)]="content" 
+                    name="content"
+                    placeholder="message.."></textarea>
+            </div>
+            <div class="float-right">
+                <button type="submit" class="btn btn-primary" (click)="onAddPost()">envoyer</button>
+            </div>
+    </div>
+</div>
 <!-- <div  class="text-center" *ngIf="auth.user | async as user">
     <h1>{{ user.pseudo }} {{ user.message }}</h1>
 </div>
