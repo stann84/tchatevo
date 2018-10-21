@@ -1,6 +1,6 @@
 <ul class="list-group">
   <li class="list-group-item" *ngFor="let user of users | async ">
-    {{ user.pseudo | json }} {{ user.age | json}} {{ user.ville | json }}</li>
+   <img [src]="user.photoURL" class="img-circle float-left" style="width:40px"> <h4>{{ user.displayName }} {{ user.pseudo | json }} {{ user.age | json}} {{ user.ville | json }}</h4></li>
 </ul>
 
 

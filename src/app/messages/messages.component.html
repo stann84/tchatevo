@@ -1,17 +1,20 @@
 
 <div class="container-fluid" *ngIf="auth.user | async as user">
+    user pseudo {{ user.displayName }}
     <div  
     style="width: 100%;
     background-color: rgba(155, 155, 155, 0.1);
     Max-height: 600px;
     overflow-y: scroll;">
     <div *ngFor="let post of posts | async">
+        <li class="list-group-item"(click)="getPost(post.id)">
                 <div class="float-left p-3 mb-2 bg-primary">
-                    {{ post.data?.pseudo  }} 
+                    {{ post.data.displayName | json  }} 
                 </div>
                 <div>
-                    <p class="p-3 mb-2 text-left">{{ post.data.content }}</p>
-                </div>
+                    <p class="p-3 mb-2 text-left">
+                        {{ post.data.content }}</p>
+                </div></li>
     </div></div>
     <div>
             <div class="form-group float-left ">
@@ -24,9 +27,13 @@
             <div class="float-right">
                 <button type="submit" class="btn btn-primary" (click)="onAddPost()">envoyer</button>
             </div>
+            
     </div>
+   
+    
 </div>
-<!-- <div  class="text-center" *ngIf="auth.user | async as user">
+ <h5>clique sur un message = {{ ( post | async)?.content }}</h5>
+ <!-- <div  class="text-center" *ngIf="auth.user | async as user">
     <h1>{{ user.pseudo }} {{ user.message }}</h1>
 </div>
 <div>

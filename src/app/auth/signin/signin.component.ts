@@ -14,7 +14,7 @@ export class SigninComponent implements OnInit {
   errorMessage: string;
 
   constructor(private formBuilder: FormBuilder,
-              private authService: AuthService,
+              private auth: AuthService,
               private router: Router) { }
 
 
@@ -28,7 +28,7 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     const email = this.signInForm.get('email').value;
     const password = this.signInForm.get('password').value;
-    this.authService.signInUser(email, password).then(
+    this.auth.signInUser(email, password).then(
       () => {
         this.router.navigate(['listusers']);
       },

@@ -7,10 +7,13 @@ import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth.service';
 import 'rxjs/add/operator/map';
 import { User } from '../models/User.model';
+import { UsersService } from '../services/users.service';
+import { UserProfilComponent } from '../user-profil/user-profil.component';
+import { auth } from '../../../node_modules/firebase';
+import { UpdateUserComponent } from '../user-form/update-user/update-user.component';
+import { Subscriber } from '../../../node_modules/rxjs';
 
 interface Post {
-  content: string;
-  user: string;
   pseudo: string;
 }
 // id pour le post
@@ -23,30 +26,33 @@ interface PostId extends Post {
   styleUrls: ['./messages.component.scss']
 })
  export class MessagesComponent implements OnInit {
-   user = this.auth.user;
+  // users: User[];
+  // user = this.authService.user;
+    public users: Observable<any[]>;
+   
 
   postsCol: AngularFirestoreCollection<Post>;
   posts: any;
 
-   content: string;
+  postDoc: AngularFirestoreDocument<Post>;
+  post: Observable<Post>;
 
-   postDoc: AngularFirestoreCollection<Post>;
-   post: Observable<Post>;
+  content: string;
+  // displayName: string;
 
  constructor(private afs: AngularFirestore,
             private auth: AuthService,
+            private authService: AuthService,
             private afAuth: AngularFireAuth
           ) {
+            this.users= afs.collection('users').valueChanges();
  }
-// ici ca marche
- pseudo = this.afs.collection(`users`).doc(`pseudo`);
 
- ngOnInit() {console.log('obj', this.pseudo)
- console.log('JSON.stringify',JSON.stringify(this.user));
- //  this.pseudo = this.afs.collection(`users/${this.pseudo}`);
+// displayName : AngularFirestoreDocument<User> = this.afs.doc(`users/${ this.displayName }`);
+// declarer la valeur de pseudo ici !
 
 
-this.user = this.afAuth.authState
+/*  pseudo = this.afAuth.authState
 .switchMap(user => {
   if (user) {
     return this.afs.doc<User>(`users/${user.uid}`)
@@ -54,8 +60,28 @@ this.user = this.afAuth.authState
   } else {
     return Observable.of(null);
   }
-});
- 
+}); */
+// pseudo = this.user.pseudo
+  // pseudo = this.afs.collection(`users`).doc(`pseudo`);
+  // pseudo = this.afs.doc("user/pseudo");
+  // pseudo = this.afs.collection(`users`)
+  // pseudo = JSON.stringify(this.afs.collection(`users`). doc ( 'uid' ));
+
+ // afs.database.lu
+  
+  ngOnInit() {
+    this.authService.getUser().subscribe(users => {
+       console.log (users.displayName); 
+      });
+   // console.log(user.displayName) 
+
+// console.log(this.displayName)
+ // displayName = this.authService.users.displayName   
+// var user = firebase.auth().currentUser;
+  //  console.log(JSON.stringify(this.afs.collection(`users`). doc ( 'uid' )));
+ // console.log('JSON.stringify',JSON.stringify(this.user.pseudo));
+ //  this.pseudo = this.afs.collection(`users/${this.pseudo}`);
+   
 
 // je creer le post
     this.postsCol = this.afs.collection('posts');
@@ -68,20 +94,39 @@ this.user = this.afAuth.authState
         });
       });
   }
-  /* getPseudo(){
-     console.log(this.pseudo);
-  } */
+  // displayName = users.displayName;
+/*  displayName = this.authService.getUser(this.displayName).subscribe(users => {
+ // console.log(users.displayName) 
+  return 1
+   }); */
+/* displayName = this.authService.getUser().subscribe(users => {
+  console.log('users.displayName = ' + users.displayName)
+ this.displayName = users.displayName
+}) */
 
+displayName = this.users['displayName'] 
 
-
-
-// j'envoie le message avec le pseudo de l'utilisateur et le message
  onAddPost() {
-  this.afs.collection('posts')
+    this.afs.collection('posts')
   .add({
-    'pseudo': this.pseudo,
+    'displayName': this.displayName,
     'content': this.content});
+ // console.log('content = ' + this.displayName)
   }
+// je recupere l Id des post
+  getPost(postId) {
+    this.postDoc = this.afs.doc('posts/'+postId);
+    this.post = this.postDoc.valueChanges();
+    console.log('post  = ' + this.post);
+   // console.log(this.displayName);
+  }
+
+ /* // je récupere le pseudo 
+ getPseudo(pseudo) {
+  this.postDoc = this.afs.doc('users/'+pseudo);
+  this.post = this.postDoc.valueChanges();
+  console.log(pseudo)
+} */
 }
 
   /*

@@ -1,5 +1,16 @@
-sign in
+
+
 <div class="text-center">
+  <h1>Connexion</h1>
+  <div class="row justify-content-around">
+    <button type="button" class="btn btn-danger col-4" (click)="auth.googleLogin()">
+      <i class="fa fa-google"></i> Connection google
+    </button>
+    <button type="button" class="btn btn-primary col-4" (click)="auth.facebookLogin()">
+      <i class="fa fa-facebook"></i> Connection facebook
+    </button>
+    {{ error }}
+  </div>
     <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="email">Email</label>

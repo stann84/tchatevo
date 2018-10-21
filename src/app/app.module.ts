@@ -32,7 +32,7 @@ import { UpdateUserComponent } from './user-form/update-user/update-user.compone
 import { NotifyService } from './services/notify.service';
 
 const appRoutes: Routes = [
-  {path: 'auth/signup' , canActivate: [AuthGuardService], component: SignupComponent},
+  {path: 'auth/signup' ,  component: SignupComponent},
   {path: 'auth/signin' , component: SigninComponent},
   {path: 'user-form' , canActivate: [AuthGuardService], component: UserFormComponent},
   {path: 'profil' , canActivate: [AuthGuardService], component: ProfilComponent},
@@ -42,9 +42,8 @@ const appRoutes: Routes = [
   {path: 'salons' , component: SalonsComponent},
   {path: 'messages' ,  component: MessagesComponent},
   {path: 'users/view/:id', canActivate: [AuthGuardService], component: SingleUserComponent},
-  {path: '', redirectTo: 'user-profil', pathMatch: 'full'},
-  {path: '**', redirectTo: 'user-profil'}
-
+  {path: '', redirectTo: 'auth/signup', pathMatch: 'full'},
+  {path: '**', redirectTo: 'auth/signup'}
 ];
 
 @NgModule({

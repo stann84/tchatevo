@@ -17,6 +17,6 @@ OnUpdateUserData(form: NgForm) {
     this.auth.updateUserData(this.auth);
     }
 OnCreateProfile() {
-      this.auth.createProfile();
+     // this.auth.createProfile();
     }
 }

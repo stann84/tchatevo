@@ -14,7 +14,6 @@ export class SignupComponent implements OnInit {
   errorMessage: string;
 
   constructor(private formBuilder: FormBuilder,
-              private authService: AuthService,
               private auth: AuthService,
               private router: Router) { }
 
@@ -29,7 +28,7 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     const email = this.signUpForm.get('email').value;
     const password = this.signUpForm.get('password').value;
-    this.authService.createNewUser(email, password).then(
+    this.auth.createNewUser(email, password).then(
       () => {
         this.router.navigate(['user-profil']);
       },

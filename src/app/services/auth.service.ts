@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 import { Subject } from 'rxjs/Subject';
 import { NotifyService } from '../services/notify.service';
+import 'rxjs/add/observable/of';
+import { of } from "rxjs";
 
 interface User {
   uid: string;
@@ -27,15 +29,17 @@ interface User {
 @Injectable()
 export class AuthService {
     user: Observable<User>;
-    router: Router;
-    errorMessage: any;
+  usersCollection: AngularFirestoreCollection<User>;
+  router: Router;
+  errorMessage: any;
 
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore,
-              private db: AngularFireDatabase,
               private route: Router,
               private notify: NotifyService) {
+
+   // this.users = this.afs.collection('users').valueChanges();
 
     this.user = this.afAuth.authState
       .switchMap(user => {
@@ -63,15 +67,39 @@ export class AuthService {
     return this.afAuth.auth
       .signInWithPopup(provider)
       .then(credential => {
-       //    return this.updateUserData(credential.user);
+           return this.updateUserData(credential.user);
       });
-      // .catch(error => this.handleError(error));
   }
 
+  //j essaie de recuperer le displayname par l'user
+  getUser(){
+    return this.user;
+  }
+
+  getDisplayName(){
+    return this.user
+  }
+  // je met a jour l'user
   public updateUserData(user) {
     console.log('updatUserData');
     const userRef: AngularFirestoreDocument<User> =
       this.afs.doc(`users/${user.uid}`);
+        const data: User = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+         /*  pseudo: user.pseudo,
+          ville: user.ville,
+          age: user.age, */
+    };
+    return userRef.set(data, {merge: true });
+  }
+// j'essaie de récupere le pseudo
+  public getPseudo(user) {
+    console.log('get pseudo');
+    const userRef: AngularFirestoreDocument<User> =
+      this.afs.doc(`users/${user}`);
         const data: User = {
           uid: user.uid,
           email: user.email,
@@ -82,9 +110,10 @@ export class AuthService {
           age: user.age,
     };
     return userRef.set(data, {merge: true });
+    
   }
 
-createProfile() {
+/* createProfile() {
     this.afAuth.authState.take(1).subscribe(auth => {
       console.log('création de profil');
       this.db.list(`user/${auth.uid}`).push(this.user)
@@ -98,7 +127,7 @@ createProfile() {
     }
     );
   }
-
+ */
   // créer un user par email
 
   createNewUser(email: string, password: string) {
